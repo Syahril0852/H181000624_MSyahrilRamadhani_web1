@@ -24,6 +24,13 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="contact" class="col-md-4 col-form-label text-md-right">{{ __('contact') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="contact" type="contact" class="form-control @error('contact') is-invalid @enderror" name="contact" value="{{ old('contact') }}" required autocomplete="contact">
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
@@ -32,30 +39,6 @@
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="offset-md-4">
-                                <div class="hasil_refereshrecapcha">
-                                    {!! captcha_img('flat'); !!}
-                                </div>
-                                <br>
-                                <a href="javascript:void(0)" onclick="refreshCaptcha()">Refresh</a>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="captcha" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Captcha') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="captcha" type="text" class="form-control @error('captcha') is-invalid @enderror" name="captcha" required>
-
-                                @error('captcha')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -94,22 +77,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('scripts')
-<script>
-    function refreshCaptcha(){
-        $.ajax({
-            url: "/refereshcapcha",
-            type: 'get',
-            dataType: 'html',
-            success: function(json) {
-                $('.hasil_refereshrecapcha').html(json);
-            },
-            error: function(data) {
-                alert('Try Again.');
-            }
-        });
-    }
-</script>
 @endsection

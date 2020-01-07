@@ -43,23 +43,9 @@
                             <label for="kontak" class="col-md-4 col-form-label text-md-right">{{ __('kontak') }}</label>
 
                             <div class="col-md-6">
-                                <input id="kontak" type="text" class="form-control @error('kontak') is-invalid @enderror" name="kontak" value="{{ old('kontak') }}" required autocomplete="kontak">
+                                <input id="kontak" type="text" class="form-control @error('kontak') is-invalid @enderror" name="kontak" required autocomplete="kontak">
 
                                 @error('kontak')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -74,24 +60,20 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
-
+ 
                         <div class="form-group row">
-                            <div class="offset-md-4">
-                                <div class="hasil_refereshrecapcha">
-                                    {!! captcha_img('flat'); !!}
-                                </div>
-                                <br>
-                                <a href="javascript:void(0)" onclick="refreshCaptcha()">Refresh</a>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="captcha" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Captcha') }}</label>
+                            <label for="captcha" class="col-md-4 col-form-label text-md-right">{{ __('captcha') }}</label>
 
                             <div class="col-md-6">
-                                <input id="captcha" type="captcha" class="form-control @error('captcha') is-invalid @enderror" name="captcha" required>
+                                <div class="captcha">
+                                    <span>{!! captcha_img() !!}</span>
+                                    <button type="button" class="btn btn-success btn-refresh">Refresh</button>
+                                </div>
+                            
+                                <input type="captcha" id="text" class="form-control mt-2 @error('captcha') is-invalid @enderror" name="captcha" placeholder="Enter captcha">
 
-                                 @error('captcha')
+
+                                @error('captcha')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -112,21 +94,4 @@
         </div>
     </div>
 </div>
-@endsection
-@section('scripts')
-    <script>
-        function refreshCaptcha(){
-            $.ajax({
-                url: "/refereshcapcha",
-                type: 'get',
-                dataType: 'html',
-                success: function(json) {
-                    $('.hasil_refereshrecapcha').html(json);
-                },
-                error: function(data) {
-                    alert('Try Again.');
-                }
-            });
-        }
-    </script>
 @endsection
